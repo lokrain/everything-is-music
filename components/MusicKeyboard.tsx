@@ -32,7 +32,8 @@ export function MusicKeyboard() {
     // Initialize AudioContext on first interaction (browser requirement)
     let ctx = audioContext;
     if (!ctx) {
-      ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      ctx = new AudioContextClass();
       setAudioContext(ctx);
     }
 
